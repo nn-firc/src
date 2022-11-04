@@ -1,0 +1,595 @@
+//-----------------------------------------------------------------------------
+//	CLIENT_CSSO.VPC
+//
+//	Project Script
+//-----------------------------------------------------------------------------
+
+$Macro SRCDIR		"..\.."
+$Macro GAMENAME 	"csso"
+
+$Include "$SRCDIR\game\client\client_base.vpc"
+
+$Configuration
+{
+	$Compiler
+	{
+		$AdditionalIncludeDirectories		"$BASE;$SRCDIR\game\shared\cstrike\control,.\gameui,.\cstrike,.\cstrike\control,.\cstrike\VGUI,$SRCDIR\game\shared\cstrike;"
+		$AdditionalIncludeDirectories		"$BASE;$SRCDIR\vgui2\include;$SRCDIR\vgui2\controls;$SRCDIR\common\GameUI"
+		$PreprocessorDefinitions			"$BASE;CSTRIKE_DLL;NEXT_BOT"
+		$PreprocessorDefinitions			"$BASE;GAMEUI_EXPORTS;VERSION_SAFE_STEAM_API_INTERFACES"
+	}
+
+	$Linker
+	{
+		$AdditionalDependencies			"$BASE Ws2_32.lib odbc32.lib odbccp32.lib Shlwapi.lib" [$WIN32]
+		$SystemLibraries				"iconv;z" [$OSXALL]	
+		$SystemLibraries				"rt" [$LINUXALL && !$DEDICATED]
+		$GCC_ExtraLinkerFlags			"-L/usr/lib32 -L/usr/lib" [$LINUXALL && !$DEDICATED]
+	}
+}
+
+$Project "Client (CSSO)"
+{
+	$Folder "Replay"
+	{
+		$File	"cstrike\cs_replay.cpp"
+		$File	"cstrike\cs_replay.h"
+	}
+	
+	$Folder	"Source Files"
+	{
+		-$File	"$SRCDIR\game\shared\weapon_parse_default.cpp"
+		
+		$File	"c_team_objectiveresource.cpp"
+		$File	"c_team_objectiveresource.h"
+		$File	"c_team_train_watcher.cpp"
+		$File	"c_team_train_watcher.h"
+		$File	"hud_base_account.cpp"
+		$File	"hud_base_account.h"
+		$File	"hud_voicestatus.cpp"
+		$File	"hud_baseachievement_tracker.cpp"
+		$File	"hud_baseachievement_tracker.h"
+		$File	"$SRCDIR\game\shared\entityutil.h"
+		$File	"$SRCDIR\game\client\hud_vote.h"
+		$File	"$SRCDIR\game\client\hud_vote.cpp"
+		$File	"$SRCDIR\game\shared\predicted_viewmodel.cpp"
+		$File	"$SRCDIR\game\shared\predicted_viewmodel.h"
+		
+		$Folder	"CounterStrike DLL"
+		{
+			$File	"$SRCDIR\game\shared\cstrike\cs_achievement_constants.h"
+			$File	"$SRCDIR\game\shared\cstrike\cs_achievementdefs.h"
+			$File   "$SRCDIR\game\shared\cs_achievements_and_stats_interface.cpp"
+			$File   "$SRCDIR\game\shared\cs_achievements_and_stats_interface.h"
+			$File	"$SRCDIR\game\shared\cstrike\achievements_cs.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\achievements_cs.h"
+			$File	"$SRCDIR\game\shared\cstrike\basecsgrenade_projectile.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\basecsgrenade_projectile.h"
+			$File	"cstrike\buy_presets\buy_preset.cpp"
+			$File	"cstrike\buy_presets\buy_preset_debug.cpp"
+			$File	"cstrike\buy_presets\buy_preset_debug.h"
+			$File	"cstrike\buy_presets\buy_preset_weapon_info.cpp"
+			$File	"cstrike\buy_presets\buy_presets.cpp"
+			$File	"cstrike\buy_presets\buy_presets.h"
+			$File	"cstrike\c_cs_hostage.cpp"
+			$File	"cstrike\c_cs_hostage.h"
+			$File	"cstrike\c_cs_player.cpp"
+			$File	"cstrike\c_cs_player.h"
+			$File	"cstrike\c_cs_playerresource.cpp"
+			$File	"cstrike\c_cs_playerresource.h"
+			$File	"cstrike\c_cs_team.cpp"
+			$File	"cstrike\c_cs_team.h"
+			$File	"cstrike\c_csrootpanel.cpp"
+			$File	"cstrike\c_csrootpanel.h"
+			$File	"cstrike\c_plantedc4.cpp"
+			$File	"cstrike\c_plantedc4.h"
+			$File	"cstrike\c_te_radioicon.cpp"
+			$File	"cstrike\c_te_shotgun_shot.cpp"
+			$File	"cstrike\clientmode_csnormal.cpp"
+			$File	"cstrike\clientmode_csnormal.h"
+			$File	"$SRCDIR\game\shared\cstrike\cs_ammodef.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_ammodef.h"
+			$File	"$SRCDIR\game\shared\cstrike\cs_gamemovement.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_gamerules.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_gamerules.h"
+			$File	"$SRCDIR\game\shared\cstrike\cs_gamestats_shared.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_gamestats_shared.h"
+			$File	"$SRCDIR\game\shared\cstrike\cs_loadout.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_loadout.h"
+			$File	"$SRCDIR\game\shared\steamworks_gamestats.cpp"
+			$File	"$SRCDIR\game\shared\steamworks_gamestats.h"			
+			$File	"cstrike\cs_in_main.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_player_shared.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_playeranimstate.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_playeranimstate.h"
+			$File	"cstrike\cs_prediction.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_shareddefs.cpp"
+			$File	"cstrike\cs_client_gamestats.cpp"
+			$File	"cstrike\cs_client_gamestats.h"
+			$File	"$SRCDIR\game\shared\cstrike\cs_usermessages.cpp"
+			$File	"cstrike\cs_view_scene.cpp"
+			$File	"cstrike\cs_view_scene.h"
+			$File	"$SRCDIR\game\shared\cstrike\cs_weapon_parse.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\cs_weapon_parse.h"
+			$File	"$SRCDIR\game\shared\cstrike\decoy_projectile.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\decoy_projectile.h"
+			$File	"cstrike\effects\clientinferno.cpp"
+			$File	"cstrike\effects\clientinferno.h"
+			$File	"cstrike\effects\c_chicken.cpp"
+			$File	"cstrike\effects\c_chicken.h"
+			$File	"cstrike\fx_cs_blood.cpp"
+			$File	"cstrike\fx_cs_blood.h"
+			$File	"cstrike\fx_cs_impacts.cpp"
+			$File	"cstrike\fx_cs_knifeslash.cpp"
+			$File	"cstrike\fx_cs_muzzleflash.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\fx_cs_shared.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\fx_cs_shared.h"
+			$File	"cstrike\fx_cs_weaponfx.cpp"
+			$File	"cstrike\fx_cs_christmaslights.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\infernoshared.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\molotov_projectile.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\molotov_projectile.h"
+			$File	"$SRCDIR\game\shared\cstrike\bot\shared_util.cpp"
+			$File	"$SRCDIR\game\shared\cstrike\bot\shared_util.h"
+			$File	"cstrike\vgui_rootpanel_cs.cpp"
+			
+			$Folder "GameUI - Embedded"
+			{
+				$Folder	"Source Files"
+				{
+					$File	"gameui\BackgroundMenuButton.cpp" \
+							"gameui\BasePanel.cpp" \
+							"gameui\GameConsole.cpp" \
+							"gameui\GameUI_Interface.cpp" \
+							"gameui\LogoFile.cpp" [!$POSIX] \
+							"gameui\ModInfo.cpp" \
+							"gameui\MouseMessageForwardingPanel.cpp" \
+							"$SRCDIR\Tracker\common\msgbuffer.cpp" [!$POSIX] \
+							"$SRCDIR\Tracker\common\netapi.cpp" [!$POSIX] \
+							"$SRCDIR\common\GameUI\ObjectList.cpp" \
+							"gameui\PanelListPanel.cpp" \
+							"gameui\RunGameEngine.cpp" \
+							"$SRCDIR\common\GameUI\scriptobject.cpp" \
+							"$SRCDIR\Tracker\common\Socket.cpp" [!$POSIX] \
+							"gameui\Sys_Utils.cpp" \
+							"gameui\TextEntryBox.cpp" \
+							"gameui\TGAImagePanel.cpp" \
+							"$SRCDIR\public\vgui_controls\vgui_controls.cpp" \
+							"gameui\VGuiSystemModuleLoader.cpp" \
+							"gameui\BonusMapsDatabase.cpp" \
+							"$SRCDIR\common\language.cpp" \
+							"$SRCDIR\common\imageutils.cpp" \
+							"gameui\SaveGameBrowserDialog.cpp" \
+							"gameui\gameui_util.cpp"
+					{
+						$Configuration
+						{
+							$Compiler
+							{
+								$Create/UsePrecompiledHeader "Not Using Precompiled Headers"
+							}
+						}
+					}
+					$File	"gameui\BonusMapsDatabase.h"
+					$File	"gameui\gameui_util.h"
+				}
+
+				$Folder	"Header Files"
+				{
+					$File	"gameui\BackgroundMenuButton.h"
+					$File	"gameui\BasePanel.h"
+					$File	"gameui\BaseSaveGameDialog.h"
+					$File	"gameui\CDKeyEntryDialog.h"
+					$File	"gameui\ChangeGameDialog.h"
+					$File	"gameui\CreateMultiplayerGameBotPage.h"
+					$File	"gameui\CreateMultiplayerGameDialog.h"
+					$File	"gameui\CreateMultiplayerGameGameplayPage.h"
+					$File	"gameui\CreateMultiplayerGameServerPage.h"
+					$File	"gameui\EngineInterface.h"
+					$File	"gameui\GameConsole.h"
+					$File	"gameui\GameUI_Interface.h"
+					$File	"gameui\LoadingDialog.h"
+					$File	"$SRCDIR\vgui2\src\Memorybitmap.h"
+					$File	"gameui\ModInfo.h"
+					$File	"gameui\MouseMessageForwardingPanel.h"
+					$File	"gameui\PanelListPanel.h"
+					$File	"$SRCDIR\common\GameUI\scriptobject.h"
+					$File	"gameui\Sys_Utils.h"
+					$File	"gameui\TextEntryBox.h"
+					$File	"gameui\TGAImagePanel.h"
+					$File	"gameui\VGuiSystemModuleLoader.h"
+					$File	"gameui\SaveGameBrowserDialog.h"
+				}
+
+				$Folder	"Public Header Files"
+				{
+					$File	"$SRCDIR\public\iachievementmgr.h"
+					$File	"$SRCDIR\public\game\client\IGameClientExports.h"
+					$File	"$SRCDIR\common\GameUI\IGameUI.h"
+					$File	"$SRCDIR\public\IGameUIFuncs.h"
+					$File	"$SRCDIR\public\tier1\interface.h"
+					$File	"$SRCDIR\common\IObjectContainer.h"
+					$File	"$SRCDIR\common\IRunGameEngine.h"
+					$File	"$SRCDIR\common\IVguiModule.h"
+					$File	"$SRCDIR\common\IVGuiModuleLoader.h"
+					$File	"$SRCDIR\common\GameUI\ObjectList.h"
+					$File	"$SRCDIR\public\savegame_version.h"
+					$File	"$SRCDIR\Tracker\common\TrackerMessageFlags.h"
+					$File	"$SRCDIR\common\ValveCDKeyGameAndTerritoryCodes.h"
+					$File	"$SRCDIR\common\language.h"		
+					$File	"$SRCDIR\common\imageutils.h"		
+				}
+
+				$Folder	"Controls"
+				{
+					$File	"gameui\BitmapImagePanel.cpp" \
+							"gameui\CommandCheckButton.cpp" \
+							"gameui\CvarNegateCheckButton.cpp" \
+							"$SRCDIR\common\GameUI\cvarslider.cpp" \
+							"gameui\CvarTextEntry.cpp" \
+							"gameui\CvarToggleCheckButton.cpp" \
+							"gameui\HapticControlBox.cpp" \
+							"gameui\KeyToggleCheckButton.cpp" \
+							"gameui\LabeledCommandComboBox.cpp" \
+							"gameui\URLButton.cpp" \
+							"gameui\vcontrolslistpanel.cpp"
+					{
+						$Configuration
+						{
+							$Compiler
+							{
+								$Create/UsePrecompiledHeader "Not Using Precompiled Headers"
+							}
+						}
+					}
+					$File	"gameui\BitmapImagePanel.h"
+					$File	"gameui\CommandCheckButton.h"
+					$File	"gameui\CvarNegateCheckButton.h"
+					$File	"$SRCDIR\common\GameUI\cvarslider.h"
+					$File	"gameui\CvarTextEntry.h"
+					$File	"gameui\CvarToggleCheckButton.h"
+					$File	"gameui\HapticControlBox.h"
+					$File	"gameui\KeyToggleCheckButton.h"
+					$File	"gameui\LabeledCommandComboBox.h"
+					$File	"gameui\URLButton.h"
+					$File	"gameui\vcontrolslistpanel.h"
+				}
+
+				$Folder	"Dialogs"
+				{
+					$File	"gameui\BenchmarkDialog.cpp" \
+							"gameui\BonusMapsDialog.cpp" \
+							"gameui\CommentaryDialog.cpp" \
+							"gameui\CommentaryExplanationDialog.cpp" \
+							"gameui\CustomTabExplanationDialog.cpp" \
+							"gameui\ContentControlDialog.cpp" \
+							"gameui\GameConsoleDialog.cpp" \
+							"gameui\LoadGameDialog_Xbox.cpp" \
+							"gameui\LoadGameDialog.cpp" \
+							"gameui\MultiplayerAdvancedDialog.cpp" \
+							"gameui\NewGameDialog.cpp" \
+							"gameui\PlayerListDialog.cpp" \
+							"gameui\SaveGameDialog_Xbox.cpp" \
+							"gameui\SaveGameDialog.cpp" \
+							"gameui\LoadCommentaryDialog.cpp" \
+							"gameui\LoadingDialog.cpp" \
+							"gameui\BaseSaveGameDialog.cpp" \
+							"gameui\ChangeGameDialog.cpp" [!$POSIX] \
+							"gameui\CreateMultiplayerGameBotPage.cpp" \
+							"gameui\CreateMultiplayerGameDialog.cpp" \
+							"gameui\CreateMultiplayerGameGameplayPage.cpp" \
+							"gameui\CreateMultiplayerGameServerPage.cpp" \
+							"gameui\OptionsDialog_Xbox.cpp" \
+							"gameui\ControllerDialog.cpp"
+					{
+						$Configuration
+						{
+							$Compiler
+							{
+								$Create/UsePrecompiledHeader "Not Using Precompiled Headers"
+							}
+						}
+					}
+					$File	"gameui\BenchmarkDialog.h"
+					$File	"gameui\BonusMapsDialog.h"
+					$File	"gameui\CommentaryDialog.h"
+					$File	"gameui\CommentaryExplanationDialog.h"
+					$File	"gameui\ContentControlDialog.h"
+					$File	"gameui\CustomTabExplanationDialog.h"
+					$File	"gameui\GameConsoleDialog.h"
+					$File	"gameui\LoadGameDialog.h"
+					$File	"gameui\MultiplayerAdvancedDialog.h"
+					$File	"gameui\NewGameDialog.h"
+					$File	"gameui\PlayerListDialog.h"
+					$File	"gameui\SaveGameDialog.h"
+					$File	"gameui\ControllerDialog.h"
+				}
+
+				$Folder	"Matchmaking"
+				{
+					$File	"gameui\matchmaking\achievementsdialog.cpp" \
+							"gameui\matchmaking\basedialog.cpp" \
+							"gameui\matchmaking\dialogmenu.cpp" \
+							"gameui\matchmaking\leaderboarddialog.cpp" \
+							"gameui\matchmaking\matchmakingbasepanel.cpp" \
+							"gameui\matchmaking\pausedialog.cpp" \
+							"gameui\matchmaking\sessionlobbydialog.cpp" \
+							"gameui\matchmaking\sessionoptionsdialog.cpp" \
+							"gameui\matchmaking\sessionbrowserdialog.cpp" \
+							"gameui\matchmaking\welcomedialog.cpp"
+					{
+						$Configuration
+						{
+							$Compiler
+							{
+								$Create/UsePrecompiledHeader "Not Using Precompiled Headers"
+							}
+						}
+					}
+					$File	"gameui\matchmaking\achievementsdialog.h"
+					$File	"gameui\matchmaking\basedialog.h"
+					$File	"gameui\matchmaking\dialogmenu.h"
+					$File	"gameui\matchmaking\leaderboarddialog.h"
+					$File	"gameui\matchmaking\matchmakingbasepanel.h"
+					$File	"gameui\matchmaking\pausedialog.h"
+					$File	"gameui\matchmaking\sessionlobbydialog.h"
+					$File	"gameui\matchmaking\sessionoptionsdialog.h"
+					$File	"gameui\matchmaking\sessionbrowserdialog.h"
+					$File	"gameui\matchmaking\welcomedialog.h"
+				}
+
+				$Folder	"Options Dialog"
+				{
+					$File	"gameui\OptionsDialog.cpp" \
+							"gameui\OptionsSubAudio.cpp" \
+							"gameui\OptionsSubDifficulty.cpp" \
+							"gameui\OptionsSubGame.cpp" \
+							"gameui\OptionsSubHaptics.cpp"	[$WIN32] \
+							"gameui\OptionsSubKeyboard.cpp" \
+							"gameui\OptionsSubMouse.cpp" \
+							"gameui\OptionsSubMultiplayer.cpp" \
+							"gameui\OptionsSubPortal.cpp" \
+							"gameui\OptionsSubVideo.cpp" \
+							"gameui\OptionsSubVoice.cpp" \
+							"gameui\ModOptionsDialog.cpp" \
+							"gameui\ModOptionsSubAgents.cpp" \
+							"gameui\ModOptionsSubGameplay.cpp" \
+							"gameui\ModOptionsSubLoadout.cpp" \
+							"gameui\ModOptionsSubKnives.cpp" \
+							"gameui\ModOptionsSubGloves.cpp" \
+							"gameui\ModOptionsSubHUD.cpp" \
+							"gameui\ModOptionsSubCrosshair.cpp"
+					{
+						$Configuration
+						{
+							$Compiler
+							{
+								$Create/UsePrecompiledHeader "Not Using Precompiled Headers"
+							}
+						}
+					}
+					$File	"gameui\OptionsDialog.h"
+					$File	"gameui\OptionsSubAudio.h"
+					$File	"gameui\OptionsSubDifficulty.h"
+					$File	"gameui\OptionsSubGame.h"
+					$File	"gameui\OptionsSubHaptics.h"	[$WIN32]
+					$File	"gameui\OptionsSubKeyboard.h"
+					$File	"gameui\OptionsSubMouse.h"
+					$File	"gameui\OptionsSubMultiplayer.h"
+					$File	"gameui\OptionsSubPortal.h"
+					$File	"gameui\OptionsSubVideo.h"
+					$File	"gameui\OptionsSubVoice.h"
+					$File	"gameui\ModOptionsDialog.h"
+					$File	"gameui\ModOptionsSubAgents.h"
+					$File	"gameui\ModOptionsSubGameplay.h"
+					$File	"gameui\ModOptionsSubLoadout.h"
+					$File	"gameui\ModOptionsSubKnives.h"
+					$File	"gameui\ModOptionsSubGloves.h"
+					$File	"gameui\ModOptionsSubHUD.h"
+					$File	"gameui\ModOptionsSubCrosshair.h"
+				}
+			}
+			
+			$Folder "HUD Elements"
+			{
+				$File	"cstrike\cs_hud_ammo.cpp"
+				$File	"cstrike\cs_hud_chat.cpp"
+				$File	"cstrike\cs_hud_chat.h"
+				$File	"cstrike\cs_hud_damageindicator.cpp"
+				$File	"cstrike\cs_hud_freezepanel.cpp"
+				$File	"cstrike\cs_hud_freezepanel.h"
+				$File	"cstrike\cs_hud_playerhealth.cpp"
+				$File	"cstrike\cs_hud_playerhealth.h"			
+				$File	"cstrike\cs_hud_health.cpp"
+				$File	"cstrike\cs_hud_scope.cpp"
+				$File	"cstrike\cs_hud_target_id.cpp"
+				$File	"cstrike\cs_hud_weaponselection.cpp"
+				$File	"cstrike\cs_hud_weaponselection.h"
+				$File	"cstrike\hud_account.cpp"
+				$File	"cstrike\hud_armor.cpp"
+				$File	"cstrike\hud_c4.cpp"
+				$File	"cstrike\hud_deathnotice.cpp"
+				$File	"cstrike\hud_defuser.cpp"
+				$File	"cstrike\hud_flashbang.cpp"
+				$File	"cstrike\hud_hostagerescue.cpp"
+				$File	"cstrike\hud_progressbar.cpp"
+				$File	"cstrike\hud_radar.cpp"
+				$File	"cstrike\hud_radar.h"
+				$File	"cstrike\hud_roundtimer.cpp"
+				$File	"cstrike\hud_scenarioicon.cpp"
+				$File	"cstrike\hud_shopping_cart.cpp"
+				$File	"cstrike\hud_teaminfo.cpp"
+				$File	"cstrike\cs_hud_achievement_announce.cpp"
+				$File	"cstrike\cs_hud_achievement_announce.h"
+				$File	"cstrike\cs_hud_achievement_tracker.cpp"
+				$File	"cstrike\radio_status.cpp"
+				$File	"cstrike\radio_status.h"
+			}
+			
+			$Folder "Weapon"
+			{
+				$File	"$SRCDIR\game\shared\cstrike\item_healthshot.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\item_healthshot.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_ak47.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_aug.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_awp.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_basecsgloves.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_basecsgloves.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_basecsgrenade.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_basecsgrenade.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_baseitem.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_baseitem.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_bizon.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_c4.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_c4.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_csbase.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_csbase.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_csbasegun.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_csbasegun.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_cz75.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_deagle.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_decoy.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_decoy.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_elite.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_famas.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_fiveseven.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_flashbang.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_flashbang.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_g3sg1.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_galilar.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_glock.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_hegrenade.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_hegrenade.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_hkp2000.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_ironsightcontroller.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_ironsightcontroller.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_knife.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_knife.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_m249.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_m4a1_silencer.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_m4a4.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_mac10.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_mag7.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_molotov.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_molotov.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_mp5sd.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_mp7.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_mp9.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_negev.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_nova.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_p90.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_p250.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_revolver.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_sawedoff.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_scar20.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_sg556.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_smokegrenade.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_smokegrenade.h"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_ssg08.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_taser.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_tec9.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_ump45.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_usp.cpp"
+				$File	"$SRCDIR\game\shared\cstrike\weapon_xm1014.cpp"
+			}
+
+			$Folder	"vgui"
+			{
+				$File	"cstrike\VGUI\achievement_stats_summary.cpp"
+				$File	"cstrike\VGUI\achievement_stats_summary.h"
+				$File	"cstrike\VGUI\achievements_page.cpp"
+				$File	"cstrike\VGUI\achievements_page.h"
+				$File	"cstrike\VGUI\stats_summary.cpp"
+				$File	"cstrike\VGUI\stats_summary.h"
+				$File	"cstrike\VGUI\stat_card.cpp"
+				$File	"cstrike\VGUI\stat_card.h"
+				$File	"cstrike\VGUI\base_stats_page.cpp"
+				$File	"cstrike\VGUI\base_stats_page.h"
+				$File	"cstrike\VGUI\match_stats_page.cpp"
+				$File	"cstrike\VGUI\match_stats_page.h"
+				$File	"cstrike\VGUI\lifetime_stats_page.cpp"
+				$File	"cstrike\VGUI\lifetime_stats_page.h"
+				$File	"cstrike\VGUI\bordered_panel.cpp"
+				$File	"cstrike\VGUI\bordered_panel.h"
+				$File	"cstrike\VGUI\backgroundpanel.cpp"
+				$File	"cstrike\VGUI\backgroundpanel.h"
+				$File	"cstrike\VGUI\buymouseoverpanelbutton.h"
+				$File	"cstrike\VGUI\buypreset_imageinfo.cpp"
+				$File	"cstrike\VGUI\buypreset_listbox.cpp"
+				$File	"cstrike\VGUI\buypreset_listbox.h"
+				$File	"cstrike\VGUI\buypreset_panel.cpp"
+				$File	"cstrike\VGUI\buypreset_weaponsetlabel.h"
+				$File	"cstrike\VGUI\career_box.cpp"
+				$File	"cstrike\VGUI\career_box.h"
+				$File	"cstrike\VGUI\career_button.cpp"
+				$File	"cstrike\VGUI\career_button.h"
+				$File	"cstrike\VGUI\counterstrikeviewport.cpp"
+				$File	"cstrike\VGUI\counterstrikeviewport.h"
+				$File	"cstrike\VGUI\cstrikebuyequipmenu.cpp"
+				$File	"cstrike\VGUI\cstrikebuyequipmenu.h"
+				$File	"cstrike\VGUI\cstrikebuymenu.cpp"
+				$File	"cstrike\VGUI\cstrikebuymenu.h"
+				$File	"cstrike\VGUI\cstrikebuysubmenu.h"
+				$File	"cstrike\VGUI\cstrikeclassmenu.cpp"
+				$File	"cstrike\VGUI\cstrikeclassmenu.h"
+				$File	"cstrike\VGUI\cstrikeclientscoreboard.cpp"
+				$File	"cstrike\VGUI\cstrikeclientscoreboard.h"
+				$File	"cstrike\VGUI\cstrikespectatorgui.cpp"
+				$File	"cstrike\VGUI\cstrikespectatorgui.h"
+				$File	"cstrike\VGUI\cstriketeammenu.cpp"
+				$File	"cstrike\VGUI\cstriketeammenu.h"
+				$File	"cstrike\VGUI\cstriketextwindow.cpp"
+				$File	"cstrike\VGUI\cstriketextwindow.h"
+				$File	"cstrike\vgui_c4panel.cpp"
+				$File	"cstrike\vgui_viewc4panel.cpp"
+				$File	"cstrike\VGUI\win_panel_round.cpp"
+				$File	"cstrike\VGUI\win_panel_round.h"
+			}
+
+			$Folder	"NextBot"
+			{
+				$File	"NextBot\C_NextBot.cpp"
+				$File	"NextBot\C_NextBot.h"
+			}
+		}
+
+		$Folder	"game_controls"
+		{
+			$File	"game_controls\buymenu.cpp"
+			$File	"game_controls\buysubmenu.cpp"
+			$File	"game_controls\classmenu.cpp"
+		}
+	}
+	
+	$Folder	"Header Files"
+	{
+
+		$Folder	"game_controls header files"
+		{
+			$File	"game_controls\buymenu.h"
+			$File	"game_controls\buysubmenu.h"
+			$File	"game_controls\classmenu.h"
+		}
+	}
+
+	$Folder	"Link Libraries" 
+	{
+		$Lib vtf
+		$Lib "$LIBPUBLIC\discord-rpc"
+		$Lib $LIBPUBLIC\raytrace
+		
+		$Lib	bitmap
+		$Lib	mathlib
+		$Lib	matsys_controls
+		$Lib	tier2
+		$Lib	tier3
+		$Lib	vgui_controls
+		$Lib  	"$LIBCOMMON/libjpeg"		[!$DEDICATED]
+		$ImpLib	steam_api
+		$Lib libpng [!$VS2015&&!$DEDICATED]
+		$Lib $LIBCOMMON/libpng [$VS2015&&!$DEDICATED]
+		$Lib libz [!$DEDICATED]
+		$ImpLib SDL2 [$SDL]
+	}
+
+}
